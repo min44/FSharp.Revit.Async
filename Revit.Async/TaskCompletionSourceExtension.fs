@@ -1,4 +1,4 @@
-﻿namespace BimGen.StructuredCabling.Revit.Async
+﻿namespace Revit.Async
 
 open System.Threading
 open System.Threading.Tasks

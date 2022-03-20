@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net48</TargetFramework>
+        <Configurations>Release;Debug</Configurations>
+        <Platforms>X64</Platforms>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <None Remove="C:\Users\MSbook\.nuget\packages\fsharp.core\6.0.3\contentFiles\any\netstandard2.0\FSharp.Core.xml" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Compile Include="Logger.fs" />
+        <Compile Include="TaskCompletionSourceExtension.fs" />
+        <Compile Include="DefaultResultHandler.fs" />
+        <Compile Include="SyncDelegateExternalEventHandler.fs" />
+        <Compile Include="AsyncLocker.fs" />
+        <Compile Include="FutureExternalEvent.fs" />
+        <Compile Include="RevitTask.fs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Revit_All_Main_Versions_API_x64" Version="2022.1.0" />
+      <PackageReference Update="FSharp.Core" Version="6.0.3" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="System.Net.Http" />
+    </ItemGroup>
+
+</Project>

@@ -1,4 +1,4 @@
-﻿namespace BimGen.StructuredCabling.Revit.Async
+﻿namespace Revit.Async
 
 type CustomLogger() =
     static member Debug text = ()

@@ -1,4 +1,4 @@
-﻿module BimGen.StructuredCabling.Revit.Async.RevitTask
+﻿module Revit.Async.RevitTask
 
 open Autodesk.Revit.UI
 open FutureExternalEvent
