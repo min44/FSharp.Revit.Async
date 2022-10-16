@@ -1,4 +1,4 @@
-﻿module private Revit.Async.FutureExternalEvent
+﻿module private BimGen.Revit.Async.FutureExternalEvent
 
 open System
 open System.Collections.Concurrent
@@ -6,6 +6,9 @@ open System.Threading.Tasks
 open Autodesk.Revit.UI
 open Autodesk.Revit.UI.Events
 open Operators
+open AsyncLocker
+open ExternalEventHandler
+open Extensions
 
 let mutable HasInitialized = false
 
@@ -13,7 +16,7 @@ let Locker = AsyncLocker()
 
 let UnlockKeys = ConcurrentQueue<UnlockKey>()
 
-let ExternalEventCreatorHandler = GenericExternalEventHandler<ExternalEvent>()
+let ExternalEventCreatorHandler = ExternalEventHandler<ExternalEvent>()
 
 let ExternalEventCreatorExternalEvent = ExternalEvent.Create(ExternalEventCreatorHandler)
 
@@ -30,14 +33,12 @@ let Initialize (app: UIApplication) =
         app.Idling.AddHandler(EventHandler<IdlingEventArgs>(AppIdling))
         HasInitialized <- true
 
-let CreateExternalEventTask (handler: GenericExternalEventHandler<'TResult>) =
+let CreateExternalEventTask (handler: ExternalEventHandler<'TResult>) =
     let onComplete unlockKey (tcs: TaskCompletionSource<ExternalEvent>) =
-        let enqueue() =
-            UnlockKeys.Enqueue(unlockKey)
-        let eventCreatingFunction _ =
-            ExternalEvent.Create(handler)
+        let enqueue() = UnlockKeys.Enqueue unlockKey
+        let eventCreatingFunction _ = ExternalEvent.Create handler
         let creatingTask =
-            let task = ExternalEventCreatorHandler.Prepare(eventCreatingFunction)
+            let task = ExternalEventCreatorHandler.Prepare eventCreatingFunction
             let raiseResult = ExternalEventCreatorExternalEvent.Raise()
             if raiseResult = ExternalEventRequest.Accepted then task
             else task
@@ -48,8 +49,8 @@ let CreateExternalEventTask (handler: GenericExternalEventHandler<'TResult>) =
 
 let RunAsync<'TResult> inputFunction =
     task {
-        let handler = GenericExternalEventHandler<'TResult>()
-        let task = handler.Prepare(inputFunction)
+        let handler = ExternalEventHandler<'TResult>()
+        let task = handler.Prepare inputFunction
         use! externalEvent = CreateExternalEventTask handler
         if externalEvent |> RaiseAccepted then return! task
         else return! task }

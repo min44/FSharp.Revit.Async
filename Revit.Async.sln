@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Revit.Async", "Revit.Async\Revit.Async.fsproj", "{2DCCF9DD-6CB2-432B-83EF-9C258FE0FAF2}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "BimGen.Revit.Async", "BimGen.Revit.Async\BimGen.Revit.Async.fsproj", "{2DCCF9DD-6CB2-432B-83EF-9C258FE0FAF2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

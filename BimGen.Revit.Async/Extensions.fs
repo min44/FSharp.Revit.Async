@@ -1,12 +1,13 @@
-﻿namespace Revit.Async
+﻿module private BimGen.Revit.Async.Extensions
 
 open System.Threading
 open System.Threading.Tasks
 open System.Runtime.CompilerServices
-
+open Logger
+open ResultHandlers
 
 [<Extension>]
-type TaskCompletionSourceExtensions =
+type TaskCompletionSourceExtension =
     [<Extension>]
     static member Await (tcs: TaskCompletionSource<'TResult>, unlockKey: Task<'TSource>, onComplete) =
             let func (task: Task<'TSource>) =
@@ -40,3 +41,11 @@ type TaskCompletionSourceExtensions =
                     tcs.TrySetException(t.Exception) |> ignore
                 | _ -> Logger.Debug("Error: Await down unknown Exception")
             finally enqueue() }
+
+
+[<Extension>]
+type ExternalEventResultHandlerExtension =
+    [<Extension>]
+    static member Wait (resultHandler: DefaultResultHandler<'TResult>, func) =
+        try resultHandler.SetResult(func());
+        with ex -> resultHandler.ThrowException(ex)

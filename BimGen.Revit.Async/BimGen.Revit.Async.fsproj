@@ -4,6 +4,7 @@
         <TargetFramework>net48</TargetFramework>
         <Configurations>Release;Debug</Configurations>
         <Platforms>X64</Platforms>
+        <LangVersion>latestmajor</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>
@@ -12,21 +13,17 @@
 
     <ItemGroup>
         <Compile Include="Logger.fs" />
-        <Compile Include="TaskCompletionSourceExtension.fs" />
-        <Compile Include="DefaultResultHandler.fs" />
-        <Compile Include="SyncDelegateExternalEventHandler.fs" />
+        <Compile Include="ResultHandlers.fs" />
+        <Compile Include="Extensions.fs" />
         <Compile Include="AsyncLocker.fs" />
+        <Compile Include="ExternalEventHandler.fs" />
         <Compile Include="FutureExternalEvent.fs" />
         <Compile Include="RevitTask.fs" />
     </ItemGroup>
 
     <ItemGroup>
       <PackageReference Include="Revit_All_Main_Versions_API_x64" Version="2022.1.0" />
-      <PackageReference Update="FSharp.Core" Version="6.0.3" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Reference Include="System.Net.Http" />
+      <PackageReference Update="FSharp.Core" Version="6.0.6" />
     </ItemGroup>
 
 </Project>

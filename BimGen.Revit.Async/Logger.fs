@@ -1,7 +1,7 @@
-﻿namespace Revit.Async
+﻿module private BimGen.Revit.Async.Logger
 
 type CustomLogger() =
-    static member Debug text = ()
+    static member Debug _ = ()
     
 type internal Logger() =
     static member LogOn = false

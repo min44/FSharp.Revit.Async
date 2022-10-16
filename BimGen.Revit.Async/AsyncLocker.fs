@@ -1,10 +1,9 @@
-﻿namespace Revit.Async
+﻿module private BimGen.Revit.Async.AsyncLocker
 
 open System
 open System.Runtime.CompilerServices
 open System.Threading
 open System.Threading.Tasks
-
 
 [<IsReadOnly; Struct>]
 type UnlockKey(locker: AsyncLocker) =

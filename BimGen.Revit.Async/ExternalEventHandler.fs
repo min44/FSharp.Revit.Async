@@ -1,11 +1,12 @@
-﻿namespace Revit.Async
+﻿module private BimGen.Revit.Async.ExternalEventHandler
 
 open System
 open System.Threading.Tasks
 open Autodesk.Revit.UI
+open ResultHandlers
+open Extensions
 
-
-type GenericExternalEventHandler<'TResult>() =
+type ExternalEventHandler<'TResult>() =
     let guid = Guid.NewGuid()
     let mutable _resultHandler: DefaultResultHandler<'TResult> option = None 
     let mutable _funcDelegate: (UIApplication -> 'TResult) option = None
