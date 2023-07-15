@@ -1,5 +1,4 @@
-# Revit.Async
-Revit.Async F# Implementation
-
-Minimalistic F# implementation of the original project.
-https://github.com/KennanChan/Revit.Async
+# FSharp.Revit.Async
+Extremely simplified and lightweigh version of 
+the outstanding work of [KennanChan](https://github.com/KennanChan/Revit.Async)
+reimplemented in F# language.
