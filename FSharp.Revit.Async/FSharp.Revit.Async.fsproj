@@ -12,12 +12,9 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Compile Include="Logger.fs" />
-        <Compile Include="ResultHandlers.fs" />
-        <Compile Include="Extensions.fs" />
         <Compile Include="AsyncLocker.fs" />
         <Compile Include="ExternalEventHandler.fs" />
-        <Compile Include="FutureExternalEvent.fs" />
+        <Compile Include="ExternalEventCreator.fs" />
         <Compile Include="RevitTask.fs" />
     </ItemGroup>
 

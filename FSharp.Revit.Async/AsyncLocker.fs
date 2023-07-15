@@ -1,25 +1,25 @@
-﻿module private BimGen.Revit.Async.AsyncLocker
+module private FSharp.Revit.Async.AsyncLocker
 
 open System
-open System.Runtime.CompilerServices
 open System.Threading
 open System.Threading.Tasks
+open System.Runtime.CompilerServices
+
 
 [<IsReadOnly; Struct>]
 type UnlockKey(locker: AsyncLocker) =
-    member x.Locker = locker
-    member x.Dispose() = x.Locker.Release()
+    member x.Dispose() = locker.Release()
     
     interface IDisposable with
         member x.Dispose() = x.Dispose()
 
 and AsyncLocker() =
-    let semaphoreSlim = new SemaphoreSlim(1, 1)
-    member x.Semaphore = semaphoreSlim
-    member x.LockAsync() : Task<UnlockKey> =
+    member val Semaphore = new SemaphoreSlim(1, 1)
+    member x.LockAsync(): Task<UnlockKey> =
         let waitTask = x.Semaphore.WaitAsync()
+        let func _   = new UnlockKey(x)
         waitTask.ContinueWith(
-            (fun task -> new UnlockKey(x)),
+            func,
             CancellationToken.None,
             TaskContinuationOptions.ExecuteSynchronously,
             TaskScheduler.Default)
